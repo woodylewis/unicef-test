@@ -59,8 +59,18 @@ const App = () => {
         getOrganizations().catch((error) => console.log(error));
         getTransactions().catch((error) => console.log(error));
       }, []);
-    }   
+    };   
     
+    const deleteTransactions = async () => {
+      const orgResponse = await axios ({
+        headers: {
+          'Access-Control-Allow-Origin': 'true'
+        },
+        method: 'get',
+        url: 'http://localhost:4000/delTrx'
+      });
+    }
+
     const postTrx = async (amount: number, org: String) => {
       const trxResponse = await axios ({
         headers: {
@@ -77,8 +87,9 @@ const App = () => {
         const { data } = resp;
         setTransactions((transactions) => [...transactions, data.data]);
       });
-    }
+    };
 
+    deleteTransactions();
     fetchOrgs();
 
   return (

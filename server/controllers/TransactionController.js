@@ -17,3 +17,12 @@ exports.createTransaction = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.deleteAllTransactions = async (req, res) => {
+  try {
+    const transactions = await transactionService.deleteAllTransactions();
+    res.json({ data: transactions, status: "success" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
