@@ -14,10 +14,17 @@ type OrgObject = {
 
 const orgArray: Array<OrgObject> = [];
 
-const trxPlaceholder = [1,2,3];
+type TransactionObject = {
+  _id: number,
+  amount: number,
+  org: String
+};
+
+const trxArray: Array<TransactionObject> = [];
 
 const App = () => {
   const [orgs, setOrgs] = useState(orgArray);
+  const [transactions, setTransactions] = useState(trxArray);
 
     const fetchOrgs = () => {
       useEffect(() => {
@@ -34,9 +41,25 @@ const App = () => {
           setOrgs((orgs) => [...data.data]);
         };
 
+        const getTransactions = async () => {
+          const orgResponse = await axios ({
+            headers: {
+              'Access-Control-Allow-Origin': 'true'
+            },
+            method: 'get',
+            url: 'http://localhost:4000/txs'
+          })
+          .then(orgResponse => {
+            const { data } = orgResponse;
+            setTransactions((transactions) => [...data.data]);
+          })
+        };
+
         getOrganizations().catch((error) => console.log(error));
+        getTransactions().catch((error) => console.log(error));
       }, []);
-    }
+    }   
+    
 
     fetchOrgs();
 
@@ -57,7 +80,6 @@ const App = () => {
           </Grid>
           { orgs.map(org => {
               return (
-                <Fragment>
                   <Grid item xs={12} key={org._id} 
                     border='.05rem solid #999'  
                     mt={2}
@@ -65,7 +87,17 @@ const App = () => {
                   >
                     {org.name}
                   </Grid>
-                </Fragment>
+              )  
+            })}
+            { transactions.map(trx => {
+              return (
+                  <Grid item xs={12} key={trx._id} 
+                    border='.05rem solid #999'  
+                    mt={2}
+                    borderRadius={1} 
+                  >
+                    {trx.amount}
+                  </Grid>
               )  
             })}
         </Grid>
