@@ -15,7 +15,7 @@ app.use("/", organizationRouter);
 app.use("/", transactionRouter);
 
 const PORT = 4000;
-const MONGO_URI = 'mongodb+srv://wls-admin:bzyuOslrQ3NKkp0H@cluster0.zumlq40.mongodb.net/unicef';
+const MONGO_URI = '';
 
 mongoose
 .connect(MONGO_URI)
