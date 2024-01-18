@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -13,6 +13,8 @@ type OrgObject = {
 };
 
 const orgArray: Array<OrgObject> = [];
+
+const trxPlaceholder = [1,2,3];
 
 const App = () => {
   const [orgs, setOrgs] = useState(orgArray);
@@ -51,13 +53,19 @@ const App = () => {
                 mt={2}
                 borderRadius={1} 
           >
-            GRID
+            Donate to one of these organizations
           </Grid>
           { orgs.map(org => {
               return (
-                <Grid item xs={12} key={org._id}>
-                  {org.name}
-                </Grid>
+                <Fragment>
+                  <Grid item xs={12} key={org._id} 
+                    border='.05rem solid #999'  
+                    mt={2}
+                    borderRadius={1} 
+                  >
+                    {org.name}
+                  </Grid>
+                </Fragment>
               )  
             })}
         </Grid>
