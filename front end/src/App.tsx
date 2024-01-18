@@ -61,8 +61,22 @@ const App = () => {
       }, []);
     }   
     
-    const postTrx = (amount: number, org: String) => {
-      console.log('POST '+ org + ' ' + amount);
+    const postTrx = async (amount: number, org: String) => {
+      const trxResponse = await axios ({
+        headers: {
+          'Access-Control-Allow-Origin': 'true'
+        },
+        method: 'post',
+        url: 'http://localhost:4000/newTrx',
+        data: {
+          amount: amount,
+          org: org
+        }
+      })
+      .then(resp => {
+        const { data } = resp;
+        setTransactions((transactions) => [...transactions, data.data]);
+      });
     }
 
     fetchOrgs();
@@ -96,7 +110,7 @@ const App = () => {
             <Button 
               variant="contained"
               onClick={() => {
-                postTrx(100, 'test');
+                postTrx(100, org.name);
               }} >
                 donate
             </Button>
