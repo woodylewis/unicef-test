@@ -22,4 +22,10 @@ For this limited use case, the front end is reading the list of Organizations an
 When the front end app is launched or reloaded, all transactions are deleted.
 
 ## Blockchain
+The server uses backend calls from the Alchemy framework. A Metamask wallet with two accounts - one for send and one for receive - provides the secret key. Along with the API key, those values should be copied into the .env file from the .env.local file included in the .gitignore file. This is standard practice for developers.
+
+As noted in the video walkthrough, the Alchemy framework presented some brittle behavior and latency, possibly associated with the number of calls being made in a short time.
+
+## Summary
+This is a baseline example of what can be built, plausibly completed in the time allowed. Lack of proper testing is duly noted.
 
