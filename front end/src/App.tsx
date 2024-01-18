@@ -19,6 +19,7 @@ type TransactionObject = {
   _id: number,
   amount: number,
   org: String
+  hash?:String
 };
 
 const trxArray: Array<TransactionObject> = [];
@@ -80,10 +81,12 @@ const App = () => {
         url: 'http://localhost:4000/newTrx',
         data: {
           amount: amount,
-          org: org
+          org: org,
+          hash: ''
         }
       })
       .then(resp => {
+        console.dir(resp);
         const { data } = resp;
         setTransactions((transactions) => [...transactions, data.data]);
       });
@@ -93,7 +96,7 @@ const App = () => {
     fetchOrgs();
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           UNICEF
@@ -136,7 +139,7 @@ const App = () => {
                     mt={2}
                     borderRadius={1} 
                   >
-                    {trx.org}&nbsp;{trx.amount}
+                    {trx.org}&nbsp;{trx.amount}&nbsp;&nbsp;{trx.hash}
                   </Grid>
               )  
             })}
