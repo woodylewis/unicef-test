@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 import axios from 'axios';
 
@@ -60,6 +61,9 @@ const App = () => {
       }, []);
     }   
     
+    const postTrx = (amount: number, org: String) => {
+      console.log('POST '+ org + ' ' + amount);
+    }
 
     fetchOrgs();
 
@@ -80,13 +84,24 @@ const App = () => {
           </Grid>
           { orgs.map(org => {
               return (
-                  <Grid item xs={12} key={org._id} 
+                <Fragment>
+                  <Grid item xs={9} key={org._id} 
                     border='.05rem solid #999'  
                     mt={2}
                     borderRadius={1} 
                   >
                     {org.name}
                   </Grid>
+          <Grid item xs={3}>
+            <Button 
+              variant="contained"
+              onClick={() => {
+                postTrx(100, 'test');
+              }} >
+                donate
+            </Button>
+          </Grid>
+          </Fragment>
               )  
             })}
             { transactions.map(trx => {
@@ -96,7 +111,7 @@ const App = () => {
                     mt={2}
                     borderRadius={1} 
                   >
-                    {trx.amount}
+                    {trx.org}&nbsp;{trx.amount}
                   </Grid>
               )  
             })}
